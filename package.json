@@ -1,0 +1,19 @@
+{
+  "name": "twitter",
+  "version": "1.0.0",
+  "description": "(twitter project for 'Building Modern Web Applications & Services using Node.js')",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rjuergen/twitter.git"
+  },
+  "author": "Juergen Reichl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rjuergen/twitter/issues"
+  },
+  "homepage": "https://github.com/rjuergen/twitter#readme"
+}
