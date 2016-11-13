@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/rjuergen/twitter/issues"
   },
-  "homepage": "https://github.com/rjuergen/twitter#readme"
+  "homepage": "https://github.com/rjuergen/twitter#readme",
+  "dependencies": {
+    "handlebars": "^4.0.6",
+    "hapi": "^15.2.0",
+    "inert": "^4.0.2",
+    "mongoose": "^4.6.7",
+    "vision": "^4.1.0"
+  }
 }
