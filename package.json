@@ -4,6 +4,7 @@
   "description": "(twitter project for 'Building Modern Web Applications & Services using Node.js')",
   "main": "index.js",
   "scripts": {
+    "start": "node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
