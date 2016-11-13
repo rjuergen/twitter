@@ -17,9 +17,12 @@
   },
   "homepage": "https://github.com/rjuergen/twitter#readme",
   "dependencies": {
+    "boom": "^4.2.0",
     "handlebars": "^4.0.6",
     "hapi": "^15.2.0",
+    "hapi-auth-cookie": "^6.1.1",
     "inert": "^4.0.2",
+    "joi": "^9.2.0",
     "mongoose": "^4.6.7",
     "vision": "^4.1.0"
   }
