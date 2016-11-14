@@ -1,4 +1,5 @@
 const Accounts = require('./app/controllers/accounts');
+const Tweets = require('./app/controllers/tweets');
 const Assets = require('./app/controllers/assets');
 
 module.exports = [
@@ -11,6 +12,8 @@ module.exports = [
   { method: 'POST', path: '/register', config: Accounts.register },
   { method: 'GET', path: '/settings', config: Accounts.viewSettings },
   { method: 'POST', path: '/settings', config: Accounts.updateSettings },
+
+  { method: 'GET', path: '/home', config: Tweets.home },
 
   {
     method: 'GET',

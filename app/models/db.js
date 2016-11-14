@@ -15,6 +15,7 @@ mongoose.connection.on('connected', function () {
   if (process.env.NODE_ENV != 'production') {
     var seeder = require('mongoose-seeder');
     const User = require('./user');
+    const Tweet = require('./tweet');
     const data = require('./data.json');
     seeder.seed(data, { dropDatabase: false, dropCollections: true }).then(dbData => {
       console.log('preloading Test Data');
