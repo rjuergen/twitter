@@ -14,6 +14,7 @@ module.exports = [
   { method: 'POST', path: '/settings', config: Accounts.updateSettings },
 
   { method: 'GET', path: '/home', config: Tweets.home },
+  { method: 'POST', path: '/home', config: Tweets.publish },
 
   {
     method: 'GET',

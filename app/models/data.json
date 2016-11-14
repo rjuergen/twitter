@@ -1,6 +1,13 @@
 {
   "users": {
     "_model": "User",
+    "admin": {
+      "firstName": "Admin",
+      "lastName": "Admin",
+      "email": "admin@admin.com",
+      "password": "admin",
+      "admin": "true"
+    },
     "homer": {
       "firstName": "Homer",
       "lastName": "Simpson",
@@ -18,6 +25,17 @@
       "lastName": "Simpson",
       "email": "bart@simpson.com",
       "password": "secret"
+    }
+  },
+  "tweets": {
+    "_model": "Tweet",
+    "tw1": {
+      "user": "->users.homer",
+      "message": "Test tweet 1"
+    },
+    "tw2": {
+      "user": "->users.homer",
+      "message": "Test tweet 2"
     }
   }
 }
