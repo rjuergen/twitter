@@ -101,7 +101,7 @@ exports.register = {
 
   handler: function (request, reply) {
     const user = new User(request.payload);
-
+    user.creationDate = new Date();
     user.save().then(newUser => {
       setCurrentUser(request, user);
       reply.redirect('/home');
@@ -172,3 +172,22 @@ function setCurrentUser(request, user) {
     loggedInUser: user.email,
   });
 }
+
+exports.users = {
+
+  handler: function (request, reply) {
+    User.find({}).sort('firstName').then(users => {
+      users.forEach(u => {
+        u.fcreationDate = u.creationDate.getDate() + '.' + u.creationDate.getMonth() +
+        '.' + u.creationDate.getFullYear();
+      });
+      reply.view('users', {
+        title: 'User',
+        users: users,
+      });
+    }).catch(err => {
+      reply.redirect('/');
+    });
+  },
+
+};

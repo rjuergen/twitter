@@ -6,36 +6,51 @@
       "lastName": "Admin",
       "email": "admin@admin.com",
       "password": "admin",
-      "admin": "true"
+      "admin": "true",
+      "avatar": "images/male1.jpg",
+      "creationDate": "2016-11-15"
     },
     "homer": {
       "firstName": "Homer",
       "lastName": "Simpson",
       "email": "homer@simpson.com",
-      "password": "secret"
+      "password": "secret",
+      "avatar": "images/male2.jpg",
+      "creationDate": "2016-11-16"
     },
     "marge": {
       "firstName": "Marge",
       "lastName": "Simpson",
       "email": "marge@simpson.com",
-      "password": "secret"
+      "password": "secret",
+      "avatar": "images/female1.jpg",
+      "creationDate": "2016-11-15"
     },
     "bart": {
       "firstName": "Bart",
       "lastName": "Simpson",
       "email": "bart@simpson.com",
-      "password": "secret"
+      "password": "secret",
+      "avatar": "images/male1.jpg",
+      "creationDate": "2016-11-16"
     }
   },
   "tweets": {
     "_model": "Tweet",
     "tw1": {
       "user": "->users.homer",
-      "message": "Test tweet 1"
+      "message": "I love donuts!",
+      "date": "2016-11-17 20:06:37"
     },
     "tw2": {
       "user": "->users.homer",
-      "message": "Test tweet 2"
+      "message": "Doh!",
+      "date": "2016-11-17 18:10:07"
+    },
+    "tw3": {
+      "user": "->users.marge",
+      "message": "Going to the mall.",
+      "date": "2016-11-17 12:00:34"
     }
   }
 }

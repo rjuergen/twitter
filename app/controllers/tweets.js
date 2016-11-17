@@ -7,10 +7,20 @@ const Joi = require('joi');
 exports.home = {
 
   handler: function (request, reply) {
-    Tweet.find({}).populate('user').then(tweets => {
-      reply.view('home', {
-        title: 'Twitterer',
-        tweets: tweets,
+    var userEmail = request.auth.credentials.loggedInUser;
+    User.findOne({ email: userEmail }).then(currentUser => {
+      Tweet.find({}).sort('date').populate('user').then(tweets => {
+        tweets.forEach(t => {
+          t.fdate = t.date.toLocaleString();
+          if (currentUser.admin || t.user.email === currentUser.email)
+            t.deletable = true;
+        });
+        reply.view('home', {
+          title: 'Twitterer',
+          tweets: tweets,
+        });
+      }).catch(err => {
+        reply.redirect('/');
       });
     }).catch(err => {
       reply.redirect('/');
@@ -28,10 +38,13 @@ exports.publish = {
     },
 
     failAction: function (request, reply, source, error) {
-      reply.view('home', {
-        title: 'Publish error',
-        errors: error.data.details,
-      }).code(400);
+      Tweet.find({}).populate('user').then(tweets => {
+        reply.view('home', {
+          title: 'Twitterer',
+          tweets: tweets,
+          errors: error.data.details,
+        }).code(400);
+      });
     },
   },
 
@@ -40,6 +53,7 @@ exports.publish = {
     User.findOne({ email: userEmail }).then(foundUser => {
       const tweet = new Tweet(request.payload);
       tweet.user = foundUser;
+      tweet.date = new Date();
       return tweet.save();
     }).then(newTweet => {
       reply.redirect('/home');
@@ -49,3 +63,28 @@ exports.publish = {
   },
 
 };
+
+exports.owntimeline = {
+
+  handler: function (request, reply) {
+    var userEmail = request.auth.credentials.loggedInUser;
+    User.findOne({ email: userEmail }).then(currentUser => {
+      Tweet.find({ user: currentUser }).sort('date').populate('user').then(tweets => {
+        tweets.forEach(t => {
+          t.fdate = t.date.toLocaleString();
+          t.deletable = true;
+        });
+        reply.view('timeline', {
+          title: 'Twitterer',
+          tweets: tweets,
+        });
+      }).catch(err => {
+        reply.redirect('/');
+      });
+    }).catch(err => {
+      reply.redirect('/');
+    });
+  },
+
+};
+

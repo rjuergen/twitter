@@ -41,6 +41,7 @@ exports.create = {
 
   handler: function (request, reply) {
     const user = new User(request.payload);
+    user.creationDate = new Date();
     user.save().then(newUser => {
       reply(newUser).code(201);
     }).catch(err => {

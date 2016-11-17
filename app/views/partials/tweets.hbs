@@ -1,18 +1,31 @@
+<h3 class="ui dividing header">Publish something to the world</h3>
+<form class="ui reply form" action="/home" method="POST">
+  <div class="field">
+    <textarea name="message"></textarea>
+  </div>
+  <button class="ui blue submit button">Publish</button>
+</form>
+{{> formerror }}
 
 <div class="ui comments">
   {{#each tweets}}
     <div class="comment">
       <a class="avatar">
-        <img src="images/Twitter-icon.png">
+        <img src="{{user.avatar}}">
       </a>
       <div class="content">
         <a class="author">{{user.firstName}} {{user.lastName}}</a>
         <div class="metadata">
-          <span class="date">Today at 5:42PM</span>
+          <span class="date">{{fdate}}</span>
         </div>
         <div class="text">
           {{message}}
         </div>
+        {{#if deletable}}
+          <div class="actions">
+            <a href="/api/tweets/delete/{{_id}}">Delete</a>
+          </div>
+        {{/if}}
       </div>
     </div>
   {{/each}}
