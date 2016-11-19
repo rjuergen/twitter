@@ -4,7 +4,7 @@ const Assets = require('./app/controllers/assets');
 
 module.exports = [
 
-  { method: 'GET', path: '/', config: Accounts.main },
+  { method: 'GET', path: '/', config: Accounts.login },
   { method: 'GET', path: '/signup', config: Accounts.signup },
   { method: 'GET', path: '/login', config: Accounts.login },
   { method: 'POST', path: '/login', config: Accounts.authenticate },

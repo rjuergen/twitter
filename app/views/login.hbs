@@ -1,32 +1,54 @@
-{{> welcomemenu }}
 
-<section class="ui raised segment">
-  <div class="ui grid">
-    <aside class="six wide column">
-      <img src="images/Twitter-icon-big.png" class="ui medium image">
-    </aside>
-    <div class="ui ten wide column fluid form">
-      <div class="ui stacked segment">
-        <form action="/login" method="POST">
-          <h3 class="ui header">Log-in</h3>
-          <div class="field">
-            <label>Email</label>
-            <div class="ui left icon input">
-              <i class="user icon"></i>
-              <input type="text" name="email" placeholder="E-mail address">
-            </div>
-          </div>
-          <div class="field">
-            <label>Password</label>
-            <div class="ui left icon input">
-              <i class="lock icon"></i>
-              <input type="password" name="password" placeholder="Password">
-            </div>
-          </div>
-          <button class="ui blue submit button">Login</button>
-        </form>
-        {{> formerror }}
+<style type="text/css">
+  body {
+    background-color: #DADADA;
+  }
+  body > .grid {
+    height: 100%;
+  }
+  .image {
+    margin-top: -100px;
+  }
+  .column {
+    max-width: 450px;
+  }
+</style>
+
+
+<div class="ui middle aligned center aligned grid container">
+  <div class="column">
+    <h2 class="ui blue image header">
+      <img src="images/Twitter-icon.png" class="image">
+      <div class="content">
+        Log-in to your account
       </div>
+    </h2>
+    <form action="/login" method="POST">
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui fluid left icon input">
+            <i class="user icon"></i>
+            <input name="email" placeholder="E-mail address" type="text">
+          </div>
+        </div>
+        <br>
+        <div class="field">
+          <div class="ui fluid left icon input">
+            <i class="lock icon"></i>
+            <input name="password" placeholder="Password" type="password">
+          </div>
+        </div>
+        <br>
+        <button class="ui fluid large blue submit button">Login</button>
+      </div>
+
+      {{> formerror }}
+
+    </form>
+
+    <div class="ui message">
+      New to us? <a href="/signup">Sign Up</a>
     </div>
+
   </div>
-</section>
+</div>

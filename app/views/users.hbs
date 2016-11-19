@@ -1,24 +1,27 @@
-{{> mainmenu _id="timeline" }}
+<section class="ui container">
 
-<section class="ui raised segment">
+  {{> mainmenu _id="timeline" }}
 
-  <div class="ui link cards">
-    {{#each users}}
-      <a href="/api/tweets/{{_id}}">
-        <div class="card">
-          <div class="image">
-              <img src={{avatar}}>
-          </div>
-          <div class="content">
-            <a class="header" href="/api/tweets/{{_id}}">{{firstName}} {{lastName}}</a>
-            <div class="meta">
-              <span class="date">Member since {{fcreationDate}}</span>
+  <section class="ui raised segment">
+
+    <div class="ui link cards">
+      {{#each users}}
+        <a href="/api/tweets/{{_id}}">
+          <div class="card">
+            <div class="image">
+                <img src={{avatar}}>
+            </div>
+            <div class="content">
+              <a class="header" href="/api/tweets/{{_id}}">{{firstName}} {{lastName}}</a>
+              <div class="meta">
+                <span class="date">Member since {{fcreationDate}}</span>
+              </div>
             </div>
           </div>
-        </div>
-      </a>
-    {{/each}}
-  </div>
+        </a>
+      {{/each}}
+    </div>
 
 
+  </section>
 </section>
