@@ -23,18 +23,21 @@ exports.timeline = {
   handler: function (request, reply) {
     var userEmail = request.auth.credentials.loggedInUser;
     User.findOne({ email: userEmail }).then(currentUser => {
-      Tweet.find({ user: request.params.id }).sort('date').populate('user').then(tweets => {
-        tweets.forEach(t => {
-          t.fdate = t.date.toLocaleString();
-          if (currentUser.admin || t.user.email === currentUser.email)
-            t.deletable = true;
-        });
-        let title = 'Timeline';
-        if (tweets.length > 0)
-          title = tweets[0].user.firstName + ' ' + tweets[0].user.lastName + ' Timeline';
-        reply.view('timeline', {
-          title: title,
-          tweets: tweets,
+      User.findOne({ _id: request.params.id }).then(timelineUser => {
+        Tweet.find({ user: request.params.id }).sort('date').populate('user').then(tweets => {
+          tweets.forEach(t => {
+            t.fdate = t.date.toLocaleString();
+            if (currentUser.admin || t.user.email === currentUser.email)
+              t.deletable = true;
+          });
+          let own = (currentUser.email === timelineUser.email);
+          reply.view('timeline', {
+            title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
+            tweets: tweets,
+            own: own,
+          });
+        }).catch(err => {
+          reply.redirect('/');
         });
       }).catch(err => {
         reply.redirect('/');

@@ -4,6 +4,17 @@
 
   <section class="ui raised segment">
 
+    {{#if own}}
+      <h3 class="ui dividing header">Publish something to the world</h3>
+      <form class="ui reply form" action="/home" method="POST">
+        <div class="field">
+          <textarea name="message"></textarea>
+        </div>
+        <button class="ui blue submit button">Publish</button>
+      </form>
+    {{/if}}
+    {{> formerror }}
+
     {{> tweets }}
 
   </section>
