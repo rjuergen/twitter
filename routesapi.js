@@ -9,6 +9,6 @@ module.exports = [
 
   { method: 'GET', path: '/api/tweets/delete/{id}', config: TweetsApi.deleteOne },
   { method: 'GET', path: '/api/tweets/{id}', config: TweetsApi.timeline },
-  { method: 'POST', path: '/timeline', config: TweetsApi.timeline },
+  { method: 'POST', path: '/api/tweets/{id}', config: TweetsApi.timelinePublish },
 
 ];

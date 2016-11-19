@@ -64,27 +64,3 @@ exports.publish = {
 
 };
 
-exports.owntimeline = {
-
-  handler: function (request, reply) {
-    var userEmail = request.auth.credentials.loggedInUser;
-    User.findOne({ email: userEmail }).then(currentUser => {
-      Tweet.find({ user: currentUser }).sort('date').populate('user').then(tweets => {
-        tweets.forEach(t => {
-          t.fdate = t.date.toLocaleString();
-          t.deletable = true;
-        });
-        reply.view('timeline', {
-          title: 'Twitterer',
-          tweets: tweets,
-        });
-      }).catch(err => {
-        reply.redirect('/');
-      });
-    }).catch(err => {
-      reply.redirect('/');
-    });
-  },
-
-};
-
