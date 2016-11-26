@@ -149,8 +149,8 @@ exports.updateSettings = {
 
   handler: function (request, reply) {
     const editedUser = request.payload;
-    var donorEmail = request.auth.credentials.loggedInUser;
-    User.findOne({ email: donorEmail }).then(user => {
+    var userEmail = request.auth.credentials.loggedInUser;
+    User.findOne({ email: userEmail }).then(user => {
       user.firstName = editedUser.firstName;
       user.lastName = editedUser.lastName;
       user.email = editedUser.email;

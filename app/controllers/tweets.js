@@ -64,3 +64,52 @@ exports.publish = {
 
 };
 
+exports.owntimeline = {
+
+  handler: function (request, reply) {
+    var userEmail = request.auth.credentials.loggedInUser;
+    User.findOne({ email: userEmail }).then(currentUser => {
+      reply.redirect('/api/tweets/' + currentUser._id);
+    }).catch(err => {
+      reply.redirect('/');
+    });
+  },
+
+};
+
+exports.timeline = {
+
+  handler: function (request, reply) {
+    var userEmail = request.auth.credentials.loggedInUser;
+    User.findOne({ email: userEmail }).then(currentUser => {
+      User.findOne({ _id: request.params.id }).then(timelineUser => {
+        Tweet.find({ user: request.params.id }).sort('date').populate('user').then(tweets => {
+          tweets.forEach(t => {
+            t.fdate = t.date.toLocaleString();
+            if (currentUser.admin || t.user.email === currentUser.email)
+              t.deletable = true;
+          });
+          if (currentUser.email === timelineUser.email) {
+            reply.view('owntimeline', {
+              title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
+              tweets: tweets,
+              user_id: currentUser._id,
+            });
+          } else {
+            reply.view('timeline', {
+              title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
+              tweets: tweets,
+            });
+          }
+        }).catch(err => {
+          reply.redirect('/');
+        });
+      }).catch(err => {
+        reply.redirect('/');
+      });
+    }).catch(err => {
+      reply.redirect('/');
+    });
+  },
+
+};

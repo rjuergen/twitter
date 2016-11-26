@@ -31,14 +31,18 @@ exports.timeline = {
             if (currentUser.admin || t.user.email === currentUser.email)
               t.deletable = true;
           });
-          let owner;
-          if (currentUser.email === timelineUser.email)
-            owner = currentUser;
-          reply.view('timeline', {
-            title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
-            tweets: tweets,
-            owner: owner,
-          });
+          if (currentUser.email === timelineUser.email) {
+            reply.view('owntimeline', {
+              title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
+              tweets: tweets,
+              user_id: currentUser._id,
+            });
+          } else {
+            reply.view('timeline', {
+              title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
+              tweets: tweets,
+            });
+          }
         }).catch(err => {
           reply.redirect('/');
         });

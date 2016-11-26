@@ -4,17 +4,6 @@
 
   <section class="ui raised segment">
 
-    {{#if owner}}
-      <h3 class="ui dividing header">Publish something to the world</h3>
-      <form class="ui reply form" action="/api/tweets/{{owner._id}}" method="POST">
-        <div class="field">
-          <textarea name="message"></textarea>
-        </div>
-        <button class="ui blue submit button">Publish</button>
-      </form>
-    {{/if}}
-    {{> formerror }}
-
     {{> tweets }}
 
   </section>
