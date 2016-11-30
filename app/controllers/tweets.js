@@ -15,9 +15,10 @@ exports.home = {
           if (currentUser.admin || t.user.email === currentUser.email)
             t.deletable = true;
         });
-        reply.view('home', {
+        reply.view('timeline', {
           title: 'Twitterer',
           tweets: tweets,
+          can_post: true,
         });
       }).catch(err => {
         reply.redirect('/');
@@ -90,15 +91,18 @@ exports.timeline = {
               t.deletable = true;
           });
           if (currentUser.email === timelineUser.email) {
-            reply.view('owntimeline', {
+            reply.view('timeline', {
               title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
               tweets: tweets,
               user_id: currentUser._id,
+              can_post: true,
+              mainmenu_id: 'owntimeline',
             });
           } else {
             reply.view('timeline', {
               title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
               tweets: tweets,
+              mainmenu_id: 'timeline',
             });
           }
         }).catch(err => {

@@ -7,7 +7,7 @@
       "email": "admin@admin.com",
       "password": "admin",
       "admin": "true",
-      "avatar": "images/male1.jpg",
+      "avatar": "/images/male1.jpg",
       "creationDate": "2016-11-15"
     },
     "homer": {
@@ -15,7 +15,7 @@
       "lastName": "Simpson",
       "email": "homer@simpson.com",
       "password": "secret",
-      "avatar": "images/male2.jpg",
+      "avatar": "/images/male2.jpg",
       "creationDate": "2016-11-16"
     },
     "marge": {
@@ -23,7 +23,7 @@
       "lastName": "Simpson",
       "email": "marge@simpson.com",
       "password": "secret",
-      "avatar": "images/female1.jpg",
+      "avatar": "/images/female1.jpg",
       "creationDate": "2016-11-15"
     },
     "bart": {
@@ -31,7 +31,7 @@
       "lastName": "Simpson",
       "email": "bart@simpson.com",
       "password": "secret",
-      "avatar": "images/male1.jpg",
+      "avatar": "/images/male1.jpg",
       "creationDate": "2016-11-16"
     }
   },

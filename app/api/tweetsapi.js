@@ -4,6 +4,8 @@ const Tweet = require('../models/tweet');
 const User = require('../models/user');
 const Boom = require('boom');
 const Joi = require('joi');
+const fs = require('fs');
+const multiparty = require('multiparty');
 
 exports.deleteOne = {
 
@@ -32,15 +34,18 @@ exports.timeline = {
               t.deletable = true;
           });
           if (currentUser.email === timelineUser.email) {
-            reply.view('owntimeline', {
+            reply.view('timeline', {
               title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
               tweets: tweets,
               user_id: currentUser._id,
+              can_post: true,
+              mainmenu_id: 'owntimeline',
             });
           } else {
             reply.view('timeline', {
               title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
               tweets: tweets,
+              mainmenu_id: 'timeline',
             });
           }
         }).catch(err => {
@@ -91,3 +96,38 @@ exports.timelinePublish = {
   },
 
 };
+
+exports.uploadImage = {
+
+  payload: {
+    maxBytes: 209715200,
+    output: 'stream',
+    parse: false,
+  },
+
+  handler: function (request, reply) {
+    var userEmail = request.auth.credentials.loggedInUser;
+    User.findOne({ email: userEmail }).then(foundUser => {
+      let folder = 'public/images/' + foundUser._id + '/';
+      let displayFolder = '/images/' + foundUser._id + '/';
+      var form = new multiparty.Form();
+      form.parse(request.payload, (err, fields, files) => {
+        fs.readFile(files.file[0].path, (err, data) => {
+          fs.existsSync(folder) || fs.mkdirSync(folder);
+          fs.writeFile(folder + files.file[0].originalFilename, data, err => {
+            reply.view(request.params.from, {
+              title: 'Twitterer',
+              //tweets: tweets,
+              image: displayFolder + files.file[0].originalFilename,
+            });
+          });
+        });
+      });
+    }).catch(err => {
+      reply.redirect('/');
+    });
+  },
+
+};
+
+

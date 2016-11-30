@@ -1,8 +1,42 @@
 <section class="ui container">
 
-  {{> mainmenu _id="timeline" }}
+  {{> mainmenu _id=mainmenu_id }}
 
   <section class="ui raised segment">
+
+    {{#if can_post}}
+      <h3 class="ui dividing header">Publish something to the world</h3>
+
+      <div>
+        {{#if user_id}}
+          <form method="POST" action="/api/upload/api/tweets/{{user_id}}" enctype="multipart/form-data">
+        {{else}}
+          <form method="POST" action="/api/upload/home" enctype="multipart/form-data">
+        {{/if}}
+            <label for="upload">Image:</label>
+            <input type="file" name="file"/>
+            <button class="ui blue submit button">Load</button>
+          </form>
+      </div>
+
+      {{#if user_id}}
+        <form class="ui reply form" action="/api/tweets/{{user_id}}" method="POST">
+      {{else}}
+        <form class="ui reply form" action="/home" method="POST">
+      {{/if}}
+
+      {{#if image}}
+        <img src={{image}} class="ui bordered image medium" name="image">
+      {{/if}}
+
+        <div class="field">
+          <textarea name="message"></textarea>
+        </div>
+        <button class="ui blue submit button">Publish</button>
+      </form>
+
+      {{> formerror }}
+    {{/if}}
 
     {{> tweets }}
 

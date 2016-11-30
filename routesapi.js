@@ -11,4 +11,6 @@ module.exports = [
   { method: 'GET', path: '/api/tweets/{id}', config: TweetsApi.timeline },
   { method: 'POST', path: '/api/tweets/{id}', config: TweetsApi.timelinePublish },
 
+  { method: 'POST', path: '/api/upload/{from}', config: TweetsApi.uploadImage },
+
 ];
