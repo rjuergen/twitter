@@ -10,6 +10,11 @@
         <div class="metadata">
           <span class="date">{{fdate}}</span>
         </div>
+        {{#if image}}
+          <div class="text">
+            <img src={{image}} class="ui bordered image medium" name="image">
+          </div>
+        {{/if}}
         <div class="text">
           {{message}}
         </div>

@@ -118,6 +118,7 @@ exports.uploadImage = {
             reply.view(request.params.from, {
               title: 'Twitterer',
               //tweets: tweets,
+              can_post: true,
               image: displayFolder + files.file[0].originalFilename,
             });
           });

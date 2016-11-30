@@ -45,7 +45,8 @@
     "tw2": {
       "user": "->users.homer",
       "message": "Doh!",
-      "date": "2016-11-17 18:10:07"
+      "date": "2016-11-17 18:10:07",
+      "image": "/images/Me_Feel_Good_inc.jpg"
     },
     "tw3": {
       "user": "->users.marge",

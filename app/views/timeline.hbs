@@ -11,7 +11,7 @@
         {{#if user_id}}
           <form method="POST" action="/api/upload/api/tweets/{{user_id}}" enctype="multipart/form-data">
         {{else}}
-          <form method="POST" action="/api/upload/home" enctype="multipart/form-data">
+          <form method="POST" action="/api/upload/timeline" enctype="multipart/form-data">
         {{/if}}
             <label for="upload">Image:</label>
             <input type="file" name="file"/>
@@ -26,7 +26,8 @@
       {{/if}}
 
       {{#if image}}
-        <img src={{image}} class="ui bordered image medium" name="image">
+        <input type="hidden" name="image" value={{image}}/>
+        <img src={{image}} class="ui bordered image medium">
       {{/if}}
 
         <div class="field">
