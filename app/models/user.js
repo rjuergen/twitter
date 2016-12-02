@@ -10,6 +10,11 @@ const userSchema = mongoose.Schema({
   admin: Boolean,
   avatar: String,
   creationDate: Date,
+  gender: {
+    type: String,
+    uppercase: true,
+    enum: ['M', 'F'],
+  },
 });
 
 const User = mongoose.model('User', userSchema);

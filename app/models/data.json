@@ -8,7 +8,8 @@
       "password": "admin",
       "admin": "true",
       "avatar": "/images/male1.jpg",
-      "creationDate": "2016-11-15"
+      "creationDate": "2016-11-15",
+      "gender": "M"
     },
     "homer": {
       "firstName": "Homer",
@@ -16,7 +17,8 @@
       "email": "homer@simpson.com",
       "password": "secret",
       "avatar": "/images/male2.jpg",
-      "creationDate": "2016-11-16"
+      "creationDate": "2016-11-16",
+      "gender": "M"
     },
     "marge": {
       "firstName": "Marge",
@@ -24,7 +26,8 @@
       "email": "marge@simpson.com",
       "password": "secret",
       "avatar": "/images/female1.jpg",
-      "creationDate": "2016-11-15"
+      "creationDate": "2016-11-15",
+      "gender": "F"
     },
     "bart": {
       "firstName": "Bart",
@@ -32,7 +35,8 @@
       "email": "bart@simpson.com",
       "password": "secret",
       "avatar": "/images/male1.jpg",
-      "creationDate": "2016-11-16"
+      "creationDate": "2016-11-16",
+      "gender": "M"
     }
   },
   "tweets": {

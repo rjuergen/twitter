@@ -29,6 +29,22 @@
               <label>Password</label>
               <input placeholder="Password" type="password" name="password">
             </div>
+            <div class="grouped fields">
+              <div class="ui radio checkbox">
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input type="radio" id="M" name="gender" value="M" checked>
+                    <label> Male</label>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input type="radio" id="F" name="gender" value="F">
+                    <label> Female</label>
+                  </div>
+                </div>
+              </div>
+            </div>
             <button class="ui blue submit button">Submit</button>
           </form>
           {{> formerror }}

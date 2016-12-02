@@ -12,13 +12,17 @@
             <label for="upload">Image:</label>
             <input type="file" name="file"/>
             <button class="ui blue submit button">Load</button>
+            <br><br>
           </form>
       </div>
 
       <form class="ui reply form" action="/api/publish/{{mainmenuid}}" method="POST">
         {{#if image}}
           <input type="hidden" name="image" value={{image}}/>
-          <img src={{image}} class="ui bordered image medium"/>
+          <div>
+            <img src={{image}} class="ui bordered image medium"/>
+          </div>
+          <br>
         {{/if}}
 
         <div class="field">

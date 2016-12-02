@@ -85,6 +85,7 @@ exports.register = {
       lastName: Joi.string().required(),
       email: Joi.string().email().required(),
       password: Joi.string().required(),
+      gender: Joi.string().required(),
     },
 
     failAction: function (request, reply, source, error) {
@@ -102,6 +103,11 @@ exports.register = {
   handler: function (request, reply) {
     const user = new User(request.payload);
     user.creationDate = new Date();
+    if (user.gender === 'M')
+      user.avatar = '/images/male2.jpg';
+    else
+      user.avatar = '/images/female2.jpg';
+
     user.save().then(newUser => {
       setCurrentUser(request, user);
       reply.redirect('/api/tweets');
