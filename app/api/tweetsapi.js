@@ -14,10 +14,19 @@ exports.deleteOne = {
   auth: false,
 
   handler: function (request, reply) {
-    Tweet.remove({ _id: request.params.id }).then(tweet => {
-      reply.redirect('/home');
+    Tweet.findOne({ _id: request.params.id }).populate('user').then(t => {
+      let id = t.user._id;
+      Tweet.remove({ _id: request.params.id }).then(tweet => {
+        if (request.params.mainmenuid === 'home') {
+          reply.redirect('/api/tweets');
+        } else {
+          reply.redirect('/api/tweets/' + id);
+        }
+      }).catch(err => {
+        reply(Boom.notFound('id not found'));
+      });
     }).catch(err => {
-      reply(Boom.notFound('id not found'));
+      reply.redirect('/');
     });
   },
 

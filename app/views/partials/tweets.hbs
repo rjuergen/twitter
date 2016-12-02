@@ -1,26 +1,26 @@
 
 <div class="ui comments">
-  {{#each tweets}}
+  {{#each tweets as |t|}}
     <div class="comment">
       <a class="avatar">
-        <img src="{{user.avatar}}">
+        <img src="{{t.user.avatar}}">
       </a>
       <div class="content">
-        <a class="author">{{user.firstName}} {{user.lastName}}</a>
+        <a class="author">{{t.user.firstName}} {{t.user.lastName}}</a>
         <div class="metadata">
-          <span class="date">{{fdate}}</span>
+          <span class="date">{{t.fdate}}</span>
         </div>
-        {{#if image}}
+        {{#if t.image}}
           <div class="text">
-            <img src={{image}} class="ui bordered image medium" name="image">
+            <img src={{t.image}} class="ui bordered image medium" name="image">
           </div>
         {{/if}}
         <div class="text">
-          {{message}}
+          {{t.message}}
         </div>
-        {{#if deletable}}
+        {{#if t.deletable}}
           <div class="actions">
-            <a href="/api/tweets/delete/{{_id}}">Delete</a>
+            <a href="/api/tweets/delete/{{../mainmenuid}}/{{t._id}}">Delete</a>
           </div>
         {{/if}}
       </div>
