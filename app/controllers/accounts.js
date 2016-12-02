@@ -55,7 +55,7 @@ exports.authenticate = {
     User.findOne({ email: user.email }).then(foundUser => {
       if (foundUser && foundUser.password === user.password) {
         setCurrentUser(request, user);
-        reply.redirect('/home');
+        reply.redirect('/api/tweets');
       } else {
         reply.redirect('/signup');
       }
@@ -104,7 +104,7 @@ exports.register = {
     user.creationDate = new Date();
     user.save().then(newUser => {
       setCurrentUser(request, user);
-      reply.redirect('/home');
+      reply.redirect('/api/tweets');
     }).catch(err => {
       reply.redirect('/');
     });
