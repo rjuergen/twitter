@@ -1,55 +1,82 @@
-<section class="ui container">
+<style type="text/css">
+  body {
+    background-color: #DADADA;
+  }
+  body > .grid {
+    height: 100%;
+  }
+  .image {
+    margin-top: -100px;
+  }
+  .column {
+    max-width: 450px;
+  }
+</style>
 
-  {{> welcomemenu }}
 
-  <section class="ui raised segment">
-    <div class="ui grid">
-      <aside class="six wide column">
-        <img src="/images/Twitter-icon-big.png" class="ui medium image">
-      </aside>
-      <div class="ui ten wide column">
-        <div class="ui stacked fluid form segment">
-          <form action="/register" method="POST">
-            <h3 class="ui header">Register</h3>
-            <div class="two fields">
-              <div class="field">
-                <label>First Name</label>
-                <input placeholder="First Name" type="text" name="firstName">
-              </div>
-              <div class="field">
-                <label>Last Name</label>
-                <input placeholder="Last Name" type="text" name="lastName">
-              </div>
-            </div>
-            <div class="field">
-              <label>Email</label>
-              <input placeholder="Email" type="text" name="email">
-            </div>
-            <div class="field">
-              <label>Password</label>
-              <input placeholder="Password" type="password" name="password">
-            </div>
-            <div class="grouped fields">
-              <div class="ui radio checkbox">
-                <div class="field">
-                  <div class="ui radio checkbox">
-                    <input type="radio" id="M" name="gender" value="M" checked>
-                    <label> Male</label>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="ui radio checkbox">
-                    <input type="radio" id="F" name="gender" value="F">
-                    <label> Female</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <button class="ui blue submit button">Submit</button>
-          </form>
-          {{> formerror }}
-        </div>
+<div class="ui middle aligned center aligned grid container">
+  <div class="column">
+    <h2 class="ui blue image header">
+      <img src="/images/Twitter-icon.png" class="image">
+      <div class="content">
+        Sign Up
       </div>
+    </h2>
+    <form action="/register" method="POST">
+      <div class="ui stacked segment">
+        <div class="two fields">
+          <div class="field">
+            <div class="ui fluid left icon input">
+              <input placeholder="First Name" type="text" name="firstName">
+            </div>
+          </div>
+          <br>
+          <div class="field">
+            <div class="ui fluid left icon input">
+              <input placeholder="Last Name" type="text" name="lastName">
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="field">
+          <div class="ui fluid left icon input">
+            <i class="user icon"></i>
+            <input placeholder="Email" type="text" name="email">
+          </div>
+        </div>
+        <br>
+        <div class="field">
+          <div class="ui fluid left icon input">
+            <i class="lock icon"></i>
+            <input placeholder="Password" type="password" name="password">
+          </div>
+        </div>
+        <br>
+        <div class="ui form">
+          <div class="inline fields">
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" id="M" name="gender" value="M" checked>
+                <label> Male</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" id="F" name="gender" value="F">
+                <label> Female</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <button class="ui fluid large blue submit button">Register</button>
+      </div>
+    </form>
+    {{> formerror }}
+
+    <div class="ui message">
+      You already have an account? <a href="/login">Log-In</a>
     </div>
-  </section>
-</section>
+
+  </div>
+</div>
