@@ -182,18 +182,29 @@ function setCurrentUser(request, user) {
 exports.users = {
 
   handler: function (request, reply) {
-    User.find({}).sort('firstName').then(users => {
-      users.forEach(u => {
-        u.fcreationDate = u.creationDate.getDate() + '.' + u.creationDate.getMonth() +
-        '.' + u.creationDate.getFullYear();
+
+    var userEmail = request.auth.credentials.loggedInUser;
+    User.findOne({ email: userEmail }).then(currentUser => {
+
+      User.find({}).sort('firstName').then(users => {
+        users.forEach(u => {
+          u.fcreationDate = u.creationDate.getDate() + '.' + u.creationDate.getMonth() +
+              '.' + u.creationDate.getFullYear();
+          if (currentUser.admin)
+            u.deletable = true;
+        });
+        reply.view('users', {
+          title: 'User',
+          users: users,
+        });
+      }).catch(err => {
+        reply.redirect('/');
       });
-      reply.view('users', {
-        title: 'User',
-        users: users,
-      });
+
     }).catch(err => {
       reply.redirect('/');
     });
+
   },
 
 };

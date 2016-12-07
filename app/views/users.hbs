@@ -16,6 +16,12 @@
               <div class="meta">
                 <span class="date">Member since {{fcreationDate}}</span>
               </div>
+              {{#if deletable}}
+                <br>
+                <div class="meta">
+                  <a href="/api/users/delete/{{_id}}">Delete</a>
+                </div>
+              {{/if}}
             </div>
           </div>
         </a>

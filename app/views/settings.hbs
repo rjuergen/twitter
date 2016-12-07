@@ -5,9 +5,10 @@
   <section class="ui raised segment">
     <div class="ui grid">
       <aside class="six wide column">
-        <img src="images/Twitter-icon-big.png" class="ui medium image">
+        <img src="/images/Twitter-icon-big.png" class="ui medium image">
       </aside>
       <div class="ui ten wide column">
+
         <div class="ui stacked fluid form segment">
           <form action="/settings" method="POST">
             <h3 class="ui header">Register</h3>
@@ -31,10 +32,26 @@
             </div>
             <button class="ui blue submit button">Save</button>
           </form>
-          {{> formerror }}
+        </div>
+
+        <div class="ui stacked fluid form segment">
+          <form action="/api/tweets/deleteAll" method="POST">
+            <label>Delete all Tweets?  </label>
+            <button class="ui blue submit button">Yes, delete</button>
+          </form>
+        </div>
+
+      </div>
+      {{> formerror }}
+    </div>
+
+    {{#if infomessage}}
+      <div class="ui success message">
+        <div class="header">
+          {{infomessage}}
         </div>
       </div>
-    </div>
-  </section>
+    {{/if}}
 
+  </section>
 </section>

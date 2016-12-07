@@ -1,6 +1,7 @@
 'use strict';
 
 const User = require('../models/user');
+const Tweet = require('../models/tweet');
 const Boom = require('boom');
 
 exports.find = {
@@ -56,11 +57,17 @@ exports.deleteOne = {
   auth: false,
 
   handler: function (request, reply) {
-    User.remove({ _id: request.params.id }).then(user => {
-      reply(User).code(204);
+
+    Tweet.remove({ user: request.params.id }).then(tweets => {
+      User.remove({ _id: request.params.id }).then(user => {
+        reply.redirect('/users');
+      }).catch(err => {
+        reply(Boom.notFound('id not found'));
+      });
     }).catch(err => {
       reply(Boom.notFound('id not found'));
     });
+
   },
 
 };

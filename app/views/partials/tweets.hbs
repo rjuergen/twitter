@@ -6,7 +6,7 @@
         <img src="{{t.user.avatar}}">
       </a>
       <div class="content">
-        <a class="author">{{t.user.firstName}} {{t.user.lastName}}</a>
+        <a class="author" href="/api/tweets/{{t.user._id}}">{{t.user.firstName}} {{t.user.lastName}}</a>
         <div class="metadata">
           <span class="date">{{t.fdate}}</span>
         </div>

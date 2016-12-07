@@ -11,8 +11,6 @@ var currentImage = null;
 
 exports.deleteOne = {
 
-  auth: false,
-
   handler: function (request, reply) {
     Tweet.findOne({ _id: request.params.id }).populate('user').then(t => {
       let id = t.user._id;
@@ -31,6 +29,30 @@ exports.deleteOne = {
   },
 
 };
+
+exports.deleteAll = {
+
+  handler: function (request, reply) {
+    var userEmail = request.auth.credentials.loggedInUser;
+    User.findOne({ email: userEmail }).then(foundUser => {
+      Tweet.remove({ user: foundUser }).then(tweets => {
+
+        reply.view('settings', {
+          title: 'Edit Account Settings',
+          user: foundUser,
+          infomessage: 'Deletion of all your tweets was successful!',
+        });
+
+      }).catch(err => {
+        reply.redirect('/');
+      });;
+    }).catch(err => {
+      reply.redirect('/');
+    });
+  },
+
+};
+
 
 exports.timeline = {
 
