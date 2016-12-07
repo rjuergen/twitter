@@ -3,7 +3,7 @@
     "_model": "User",
     "admin": {
       "firstName": "Admin",
-      "lastName": "Admin",
+      "lastName": " ",
       "email": "admin@admin.com",
       "password": "admin",
       "admin": "true",
