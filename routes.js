@@ -13,8 +13,16 @@ module.exports = [
   { method: 'GET', path: '/settings', config: Accounts.viewSettings },
   { method: 'POST', path: '/settings', config: Accounts.updateSettings },
   { method: 'GET', path: '/users', config: Accounts.users },
+  { method: 'GET', path: '/api/users/delete/{id}', config: Accounts.deleteOne },
 
   { method: 'GET', path: '/owntimeline', config: Tweets.owntimeline },
+  { method: 'GET', path: '/tweets/delete/{mainmenuid}/{id}', config: Tweets.deleteOne },
+  { method: 'GET', path: '/tweets/{id}', config: Tweets.timeline },
+  { method: 'GET', path: '/tweets', config: Tweets.timeline },
+  { method: 'POST', path: '/tweets/deleteAll', config: Tweets.deleteAll },
+
+  { method: 'POST', path: '/upload/{mainmenuid}', config: Tweets.uploadImage },
+  { method: 'POST', path: '/publish/{mainmenuid}', config: Tweets.publish },
 
   {
     method: 'GET',

@@ -55,7 +55,7 @@ exports.authenticate = {
     User.findOne({ email: user.email }).then(foundUser => {
       if (foundUser && foundUser.password === user.password) {
         setCurrentUser(request, user);
-        reply.redirect('/api/tweets');
+        reply.redirect('/tweets');
       } else {
         reply.redirect('/signup');
       }
@@ -110,7 +110,7 @@ exports.register = {
 
     user.save().then(newUser => {
       setCurrentUser(request, user);
-      reply.redirect('/api/tweets');
+      reply.redirect('/tweets');
     }).catch(err => {
       reply.redirect('/');
     });
@@ -203,6 +203,26 @@ exports.users = {
 
     }).catch(err => {
       reply.redirect('/');
+    });
+
+  },
+
+};
+
+exports.deleteOne = {
+
+  auth: false,
+
+  handler: function (request, reply) {
+
+    Tweet.remove({ user: request.params.id }).then(tweets => {
+      User.remove({ _id: request.params.id }).then(user => {
+        reply.redirect('/users');
+      }).catch(err => {
+        reply(Boom.notFound('id not found'));
+      });
+    }).catch(err => {
+      reply(Boom.notFound('id not found'));
     });
 
   },

@@ -6,7 +6,7 @@
         <img src="{{t.user.avatar}}">
       </a>
       <div class="content">
-        <a class="author" href="/api/tweets/{{t.user._id}}">{{t.user.firstName}} {{t.user.lastName}}</a>
+        <a class="author" href="/tweets/{{t.user._id}}">{{t.user.firstName}} {{t.user.lastName}}</a>
         <div class="metadata">
           <span class="date">{{t.fdate}}</span>
         </div>
@@ -20,7 +20,7 @@
         </div>
         {{#if t.deletable}}
           <div class="actions">
-            <a href="/api/tweets/delete/{{../mainmenuid}}/{{t._id}}">Delete</a>
+            <a href="/tweets/delete/{{../mainmenuid}}/{{t._id}}">Delete</a>
           </div>
         {{/if}}
       </div>

@@ -60,7 +60,7 @@ exports.deleteOne = {
 
     Tweet.remove({ user: request.params.id }).then(tweets => {
       User.remove({ _id: request.params.id }).then(user => {
-        reply.redirect('/users');
+        reply(User).code(204);
       }).catch(err => {
         reply(Boom.notFound('id not found'));
       });

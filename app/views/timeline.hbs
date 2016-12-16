@@ -8,7 +8,7 @@
       <h3 class="ui dividing header">Publish something to the world</h3>
 
       <div>
-          <form method="POST" action="/api/upload/{{mainmenuid}}" enctype="multipart/form-data">
+          <form method="POST" action="/upload/{{mainmenuid}}" enctype="multipart/form-data">
             <label for="upload">Image:</label>
             <input type="file" name="file"/>
             <button class="ui blue submit button">Load</button>
@@ -16,7 +16,7 @@
           </form>
       </div>
 
-      <form class="ui reply form" action="/api/publish/{{mainmenuid}}" method="POST">
+      <form class="ui reply form" action="/publish/{{mainmenuid}}" method="POST">
         {{#if image}}
           <input type="hidden" name="image" value={{image}}/>
           <div>
