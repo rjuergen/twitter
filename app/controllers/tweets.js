@@ -7,7 +7,7 @@ const Joi = require('joi');
 const fs = require('fs');
 const multiparty = require('multiparty');
 
-var currentImage = null;
+var currentImage = [];
 
 exports.owntimeline = {
 
@@ -58,7 +58,7 @@ exports.deleteAll = {
 
       }).catch(err => {
         reply.redirect('/');
-      });;
+      });
     }).catch(err => {
       reply.redirect('/');
     });
@@ -101,13 +101,14 @@ exports.publish = {
     },
 
     failAction: function (request, reply, source, error) {
+      var userEmail = request.auth.credentials.loggedInUser;
       Tweet.find({}).populate('user').then(tweets => {
         reply.view('/tweets', {
           title: 'Twitterer',
           tweets: tweets,
           can_post: true,
           mainmenuid: 'home',
-          image: currentImage,
+          image: currentImage[userEmail],
           errors: error.data.details,
         }).code(400);
       });
@@ -115,8 +116,8 @@ exports.publish = {
   },
 
   handler: function (request, reply) {
-    currentImage = null;
     var userEmail = request.auth.credentials.loggedInUser;
+    currentImage[userEmail] = null;
     User.findOne({ email: userEmail }).then(foundUser => {
       const tweet = new Tweet(request.payload);
       tweet.user = foundUser;
@@ -150,7 +151,7 @@ function displayTweets(request, reply, tweets, timelineUser) {
         tweets: tweets,
         can_post: true,
         mainmenuid: 'home',
-        image: currentImage,
+        image: currentImage[userEmail],
       });
     } else if (currentUser.email === timelineUser.email) { // own timeline
       reply.view('timeline', {
@@ -159,7 +160,7 @@ function displayTweets(request, reply, tweets, timelineUser) {
         user_id: currentUser._id,
         can_post: true,
         mainmenuid: 'owntimeline',
-        image: currentImage,
+        image: currentImage[userEmail],
       });
     } else { // someones timeline
       reply.view('timeline', {
@@ -191,7 +192,7 @@ exports.uploadImage = {
         fs.readFile(files.file[0].path, (err, data) => {
           fs.existsSync(folder) || fs.mkdirSync(folder);
           fs.writeFile(folder + files.file[0].originalFilename, data, err => {
-            currentImage = displayFolder + files.file[0].originalFilename;
+            currentImage[userEmail] = displayFolder + files.file[0].originalFilename;
             if (request.params.mainmenuid === 'home') {
               reply.redirect('/tweets');
             } else {
