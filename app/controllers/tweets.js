@@ -147,6 +147,8 @@ exports.publish = {
 function displayTweets(request, reply, tweets, timelineUser) {
   var userEmail = request.auth.credentials.loggedInUser;
   User.findOne({ email: userEmail }).then(currentUser => {
+    currentUser.fcreationDate = currentUser.creationDate.getDate() +
+        '.' + currentUser.creationDate.getMonth() + '.' + currentUser.creationDate.getFullYear();
     tweets.forEach(t => {
       t.fdate = t.date.toLocaleString();
       if (currentUser.admin || t.user.email === currentUser.email)
@@ -175,6 +177,8 @@ function displayTweets(request, reply, tweets, timelineUser) {
       });
     } else { // someones timeline
       timelineUser.fav = currentUser.following.indexOf(timelineUser._id) != -1;
+      timelineUser.fcreationDate = timelineUser.creationDate.getDate() +
+          '.' + timelineUser.creationDate.getMonth() + '.' + timelineUser.creationDate.getFullYear();
       reply.view('timeline', {
         title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
         tweets: tweets,
