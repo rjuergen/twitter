@@ -71,8 +71,15 @@ exports.timeline = {
 
   handler: function (request, reply) {
     if (request.params.id === undefined) { // home
-      Tweet.find({}).sort({ date: 'desc' }).populate('user').then(tweets => {
-        displayTweets(request, reply, tweets, null);
+      var userEmail = request.auth.credentials.loggedInUser;
+      User.findOne({ email: userEmail }).then(currentUser => {
+        let following = currentUser.following;
+        following.push(currentUser._id);
+        Tweet.find({}).where({ user: { $in: following } }).sort({ date: 'desc' }).populate('user').then(tweets => {
+          displayTweets(request, reply, tweets, null);
+        }).catch(err => {
+          reply.redirect('/');
+        });
       }).catch(err => {
         reply.redirect('/');
       });
