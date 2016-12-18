@@ -193,6 +193,8 @@ exports.users = {
               '.' + u.creationDate.getFullYear();
           if (currentUser.admin)
             u.deletable = true;
+          u.fav = currentUser.following.indexOf(u._id) !== -1;
+          u.followable = currentUser.email !== u.email;
         });
         reply.view('users', {
           title: 'User',
@@ -222,6 +224,52 @@ exports.deleteOne = {
       }).catch(err => {
         reply.redirect('/');
       });
+    }).catch(err => {
+      reply.redirect('/');
+    });
+
+  },
+
+};
+
+exports.follow = {
+
+  handler: function (request, reply) {
+
+    var userEmail = request.auth.credentials.loggedInUser;
+    User.findOne({ email: userEmail }).then(currentUser => {
+      User.findOne({ _id: request.params.id }).then(user => {
+        currentUser.following.push(user);
+        currentUser.save();
+        reply.redirect('/tweets/' + user._id);
+      }).catch(err => {
+        reply.redirect('/');
+      });
+
+    }).catch(err => {
+      reply.redirect('/');
+    });
+
+  },
+
+};
+
+exports.unfollow = {
+
+  handler: function (request, reply) {
+
+    var userEmail = request.auth.credentials.loggedInUser;
+    User.findOne({ email: userEmail }).then(currentUser => {
+      User.findOne({ _id: request.params.id }).then(user => {
+        var index = currentUser.following.indexOf(user._id);
+        if (index != -1)
+          currentUser.following.splice(index, 1);
+        currentUser.save();
+        reply.redirect('/tweets/' + user._id);
+      }).catch(err => {
+        reply.redirect('/');
+      });
+
     }).catch(err => {
       reply.redirect('/');
     });

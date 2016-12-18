@@ -153,6 +153,7 @@ function displayTweets(request, reply, tweets, timelineUser) {
         mainmenuid: 'home',
         image: currentImage[userEmail],
         user: currentUser,
+        followable: false,
       });
     } else if (currentUser.email === timelineUser.email) { // own timeline
       reply.view('timeline', {
@@ -163,13 +164,16 @@ function displayTweets(request, reply, tweets, timelineUser) {
         mainmenuid: 'owntimeline',
         image: currentImage[userEmail],
         user: currentUser,
+        followable: false,
       });
     } else { // someones timeline
+      timelineUser.fav = currentUser.following.indexOf(timelineUser._id) != -1;
       reply.view('timeline', {
         title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
         tweets: tweets,
         mainmenuid: 'timeline',
         user: timelineUser,
+        followable: true,
       });
     }
   }).catch(err => {

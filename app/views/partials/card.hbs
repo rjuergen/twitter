@@ -3,9 +3,19 @@
     <img src={{user.avatar}}>
   </div>
   <div class="content">
-              <span class="right floated">
-                <i class="empty star icon"></i>
-              </span>
+    {{#if followable}}
+      <span class="right floated">
+        {{#if user.fav}}
+          <a href="/users/unfollow/{{user._id}}">
+            <i class="star icon"></i>
+          </a>
+        {{else}}
+          <a href="/users/follow/{{user._id}}">
+            <i class="empty star icon"></i>
+          </a>
+        {{/if}}
+      </span>
+    {{/if}}
     <a class="header" href="/tweets/{{user._id}}">{{user.firstName}} {{user.lastName}}</a>
     <div class="meta">
       <span class="date">Member since {{user.fcreationDate}}</span>

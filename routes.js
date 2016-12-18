@@ -14,6 +14,8 @@ module.exports = [
   { method: 'POST', path: '/settings', config: Accounts.updateSettings },
   { method: 'GET', path: '/users', config: Accounts.users },
   { method: 'GET', path: '/users/delete/{id}', config: Accounts.deleteOne },
+  { method: 'GET', path: '/users/follow/{id}', config: Accounts.follow },
+  { method: 'GET', path: '/users/unfollow/{id}', config: Accounts.unfollow },
 
   { method: 'GET', path: '/owntimeline', config: Tweets.owntimeline },
   { method: 'GET', path: '/tweets/delete/{mainmenuid}/{id}', config: Tweets.deleteOne },

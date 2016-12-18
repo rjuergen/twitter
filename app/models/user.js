@@ -15,6 +15,10 @@ const userSchema = mongoose.Schema({
     uppercase: true,
     enum: ['M', 'F'],
   },
+  following: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  }],
 });
 
 const User = mongoose.model('User', userSchema);

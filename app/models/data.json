@@ -11,15 +11,6 @@
       "creationDate": "2016-11-15",
       "gender": "M"
     },
-    "homer": {
-      "firstName": "Homer",
-      "lastName": "Simpson",
-      "email": "homer@simpson.com",
-      "password": "secret",
-      "avatar": "/images/male2.png",
-      "creationDate": "2016-11-16",
-      "gender": "M"
-    },
     "marge": {
       "firstName": "Marge",
       "lastName": "Simpson",
@@ -37,6 +28,16 @@
       "avatar": "/images/male1.png",
       "creationDate": "2016-11-16",
       "gender": "M"
+    },
+    "homer": {
+      "firstName": "Homer",
+      "lastName": "Simpson",
+      "email": "homer@simpson.com",
+      "password": "secret",
+      "avatar": "/images/male2.png",
+      "creationDate": "2016-11-16",
+      "gender": "M",
+      "following": ["->users.bart", "->users.marge"]
     }
   },
   "tweets": {
