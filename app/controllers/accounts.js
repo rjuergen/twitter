@@ -104,8 +104,9 @@ exports.register = {
   handler: function (request, reply) {
     const user = new User(request.payload);
     user.creationDate = new Date();
+    let randomInt = (user.creationDate.getMilliseconds() % 3) + 1;
     if (user.gender === 'M')
-      user.avatar = '/images/male2.png';
+      user.avatar = '/images/male' + randomInt + '.png';
     else
       user.avatar = '/images/female2.png';
 
