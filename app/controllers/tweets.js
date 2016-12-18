@@ -152,6 +152,7 @@ function displayTweets(request, reply, tweets, timelineUser) {
         can_post: true,
         mainmenuid: 'home',
         image: currentImage[userEmail],
+        user: currentUser,
       });
     } else if (currentUser.email === timelineUser.email) { // own timeline
       reply.view('timeline', {
@@ -161,12 +162,14 @@ function displayTweets(request, reply, tweets, timelineUser) {
         can_post: true,
         mainmenuid: 'owntimeline',
         image: currentImage[userEmail],
+        user: currentUser,
       });
     } else { // someones timeline
       reply.view('timeline', {
         title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
         tweets: tweets,
         mainmenuid: 'timeline',
+        user: timelineUser,
       });
     }
   }).catch(err => {

@@ -4,27 +4,11 @@
 
   <section class="ui raised segment">
 
-    <div class="ui link cards">
-      {{#each users}}
-        <a href="/tweets/{{_id}}">
-          <div class="card">
-            <div class="image">
-                <img src={{avatar}}>
-            </div>
-            <div class="content">
-              <a class="header" href="/tweets/{{_id}}">{{firstName}} {{lastName}}</a>
-              <div class="meta">
-                <span class="date">Member since {{fcreationDate}}</span>
-              </div>
-              {{#if deletable}}
-                <br>
-                <div class="meta">
-                  <a href="/users/delete/{{_id}}">Delete</a>
-                </div>
-              {{/if}}
-            </div>
-          </div>
-        </a>
+    <div class="ui cards">
+      {{#each users as |u|}}
+
+          {{> card user=u}}
+
       {{/each}}
     </div>
 

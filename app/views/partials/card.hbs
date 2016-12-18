@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="image">
+    <img src={{user.avatar}}>
+  </div>
+  <div class="content">
+              <span class="right floated">
+                <i class="empty star icon"></i>
+              </span>
+    <a class="header" href="/tweets/{{user._id}}">{{user.firstName}} {{user.lastName}}</a>
+    <div class="meta">
+      <span class="date">Member since {{user.fcreationDate}}</span>
+    </div>
+    {{#if user.deletable}}
+      <br>
+      <div class="extra content">
+        <a href="/users/delete/{{user._id}}">Delete</a>
+      </div>
+    {{/if}}
+  </div>
+</div>

@@ -7,7 +7,7 @@
       "email": "admin@admin.com",
       "password": "admin",
       "admin": "true",
-      "avatar": "/images/male1.jpg",
+      "avatar": "/images/admin.jpg",
       "creationDate": "2016-11-15",
       "gender": "M"
     },
@@ -16,7 +16,7 @@
       "lastName": "Simpson",
       "email": "homer@simpson.com",
       "password": "secret",
-      "avatar": "/images/male2.jpg",
+      "avatar": "/images/male2.png",
       "creationDate": "2016-11-16",
       "gender": "M"
     },
@@ -25,7 +25,7 @@
       "lastName": "Simpson",
       "email": "marge@simpson.com",
       "password": "secret",
-      "avatar": "/images/female1.jpg",
+      "avatar": "/images/female1.png",
       "creationDate": "2016-11-15",
       "gender": "F"
     },
@@ -34,7 +34,7 @@
       "lastName": "Simpson",
       "email": "bart@simpson.com",
       "password": "secret",
-      "avatar": "/images/male1.jpg",
+      "avatar": "/images/male1.png",
       "creationDate": "2016-11-16",
       "gender": "M"
     }

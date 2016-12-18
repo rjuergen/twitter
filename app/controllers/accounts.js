@@ -1,5 +1,6 @@
 'use strict';
 
+const Tweet = require('../models/tweet');
 const User = require('../models/user');
 const Joi = require('joi');
 
@@ -104,9 +105,9 @@ exports.register = {
     const user = new User(request.payload);
     user.creationDate = new Date();
     if (user.gender === 'M')
-      user.avatar = '/images/male2.jpg';
+      user.avatar = '/images/male2.png';
     else
-      user.avatar = '/images/female2.jpg';
+      user.avatar = '/images/female2.png';
 
     user.save().then(newUser => {
       setCurrentUser(request, user);
@@ -219,10 +220,10 @@ exports.deleteOne = {
       User.remove({ _id: request.params.id }).then(user => {
         reply.redirect('/users');
       }).catch(err => {
-        reply(Boom.notFound('id not found'));
+        reply.redirect('/');
       });
     }).catch(err => {
-      reply(Boom.notFound('id not found'));
+      reply.redirect('/');
     });
 
   },

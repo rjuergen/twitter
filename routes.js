@@ -13,7 +13,7 @@ module.exports = [
   { method: 'GET', path: '/settings', config: Accounts.viewSettings },
   { method: 'POST', path: '/settings', config: Accounts.updateSettings },
   { method: 'GET', path: '/users', config: Accounts.users },
-  { method: 'GET', path: '/api/users/delete/{id}', config: Accounts.deleteOne },
+  { method: 'GET', path: '/users/delete/{id}', config: Accounts.deleteOne },
 
   { method: 'GET', path: '/owntimeline', config: Tweets.owntimeline },
   { method: 'GET', path: '/tweets/delete/{mainmenuid}/{id}', config: Tweets.deleteOne },

@@ -3,16 +3,24 @@
   {{> mainmenu _id=mainmenuid }}
 
   <section class="ui raised segment">
+    <div class="ui grid">
+      <aside class="four wide column">
+        <div class="ui cards">
+          {{> card user=user }}
+        </div>
+      </aside>
+      <div class="ui one wide column"></div>
+      <div class="ui ten wide column">
+        {{#if can_post}}
 
-    {{#if can_post}}
+          {{> publish }}
+          {{> formerror }}
 
-      {{> publish }}
-      {{> formerror }}
+        {{/if}}
 
-    {{/if}}
-
-    {{> tweets }}
-
+        {{> tweets }}
+      </div>
+    </div>
   </section>
 
 </section>
