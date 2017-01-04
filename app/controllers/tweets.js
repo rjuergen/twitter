@@ -8,6 +8,7 @@ const fs = require('fs');
 const multiparty = require('multiparty');
 
 var currentImage = [];
+var errors = [];
 
 exports.owntimeline = {
 
@@ -93,16 +94,14 @@ exports.publish = {
 
     failAction: function (request, reply, source, error) {
       var userEmail = request.auth.credentials.loggedInUser;
-      Tweet.find({}).populate('user').then(tweets => {
-        reply.view('/tweets', {
-          title: 'Twitterer',
-          tweets: tweets,
-          can_post: true,
-          mainmenuid: 'home',
-          image: currentImage[userEmail],
-          errors: error.data.details,
-        }).code(400);
-      });
+      errors[userEmail] = error;
+      if (request.params.mainmenuid === 'home') {
+        reply.redirect('/tweets');
+      } else {
+        User.findOne({ email: userEmail }).then(foundUser => {
+          reply.redirect('/tweets/' + foundUser._id);
+        }).catch(err => { console.log(err); });
+      }
     },
   },
 
@@ -132,6 +131,8 @@ function displayTweets(request, reply, tweets, timelineUser) {
     currentUser.fcreationDate = currentUser.creationDate.getDate() +
         '.' + currentUser.creationDate.getMonth() + '.' + currentUser.creationDate.getFullYear();
     currentUser.followingCount = currentUser.following.length;
+    let error = errors[userEmail];
+    errors[userEmail] = null;
     tweets.forEach(t => {
       t.fdate = t.date.toLocaleString();
       if (currentUser.admin || t.user.email === currentUser.email)
@@ -148,6 +149,7 @@ function displayTweets(request, reply, tweets, timelineUser) {
           image: currentImage[userEmail],
           user: currentUser,
           followable: false,
+          errors: error,
         });
       }).catch(err => { console.log(err); });
     } else if (currentUser.email === timelineUser.email) { // own timeline
@@ -162,6 +164,7 @@ function displayTweets(request, reply, tweets, timelineUser) {
           image: currentImage[userEmail],
           user: currentUser,
           followable: false,
+          errors: error,
         });
       }).catch(err => { console.log(err); });
     } else { // someones timeline
