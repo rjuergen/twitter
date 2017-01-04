@@ -60,9 +60,7 @@ exports.authenticate = {
       } else {
         reply.redirect('/signup');
       }
-    }).catch(err => {
-      reply.redirect('/');
-    });
+    }).catch(err => { console.log(err); });
   },
 
 };
@@ -113,9 +111,7 @@ exports.register = {
     user.save().then(newUser => {
       setCurrentUser(request, user);
       reply.redirect('/tweets');
-    }).catch(err => {
-      reply.redirect('/');
-    });
+    }).catch(err => { console.log(err); });
   },
 
 };
@@ -126,9 +122,7 @@ exports.viewSettings = {
     var donorEmail = request.auth.credentials.loggedInUser;
     User.findOne({ email: donorEmail }).then(foundUser => {
       reply.view('settings', { title: 'Edit Account Settings', user: foundUser });
-    }).catch(err => {
-      reply.redirect('/');
-    });
+    }).catch(err => { console.log(err); });
   },
 };
 
@@ -167,9 +161,7 @@ exports.updateSettings = {
     }).then(user => {
       setCurrentUser(request, user);
       reply.view('settings', { title: 'Edit Account Settings', user: user });
-    }).catch(err => {
-      reply.redirect('/');
-    });
+    }).catch(err => { console.log(err); });
   },
 
 };
@@ -207,12 +199,8 @@ exports.users = {
           title: 'User',
           users: users,
         });
-      }).catch(err => {
-        reply.redirect('/');
-      });
-    }).catch(err => {
-      reply.redirect('/');
-    });
+      }).catch(err => { console.log(err); });
+    }).catch(err => { console.log(err); });
 
   },
 
@@ -227,12 +215,8 @@ exports.deleteOne = {
     Tweet.remove({ user: request.params.id }).then(tweets => {
       User.remove({ _id: request.params.id }).then(user => {
         reply.redirect('/users');
-      }).catch(err => {
-        reply.redirect('/');
-      });
-    }).catch(err => {
-      reply.redirect('/');
-    });
+      }).catch(err => { console.log(err); });
+    }).catch(err => { console.log(err); });
 
   },
 
@@ -248,13 +232,8 @@ exports.follow = {
         currentUser.following.push(user);
         currentUser.save();
         reply.redirect('/tweets/' + user._id);
-      }).catch(err => {
-        reply.redirect('/');
-      });
-
-    }).catch(err => {
-      reply.redirect('/');
-    });
+      }).catch(err => { console.log(err); });
+    }).catch(err => { console.log(err); });
 
   },
 
@@ -272,13 +251,8 @@ exports.unfollow = {
           currentUser.following.splice(index, 1);
         currentUser.save();
         reply.redirect('/tweets/' + user._id);
-      }).catch(err => {
-        reply.redirect('/');
-      });
-
-    }).catch(err => {
-      reply.redirect('/');
-    });
+      }).catch(err => { console.log(err); });
+    }).catch(err => { console.log(err); });
 
   },
 

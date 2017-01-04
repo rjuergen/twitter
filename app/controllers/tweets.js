@@ -15,9 +15,7 @@ exports.owntimeline = {
     var userEmail = request.auth.credentials.loggedInUser;
     User.findOne({ email: userEmail }).then(currentUser => {
       reply.redirect('/tweets/' + currentUser._id);
-    }).catch(err => {
-      reply.redirect('/');
-    });
+    }).catch(err => { console.log(err); });
   },
 
 };
@@ -36,9 +34,7 @@ exports.deleteOne = {
       }).catch(err => {
         reply(Boom.notFound('id not found'));
       });
-    }).catch(err => {
-      reply.redirect('/');
-    });
+    }).catch(err => { console.log(err); });
   },
 
 };
@@ -56,12 +52,8 @@ exports.deleteAll = {
           infomessage: 'Deletion of all your tweets was successful!',
         });
 
-      }).catch(err => {
-        reply.redirect('/');
-      });
-    }).catch(err => {
-      reply.redirect('/');
-    });
+      }).catch(err => { console.log(err); });
+    }).catch(err => { console.log(err); });
   },
 
 };
@@ -77,22 +69,14 @@ exports.timeline = {
         following.push(currentUser._id);
         Tweet.find({}).where({ user: { $in: following } }).sort({ date: 'desc' }).populate('user').then(tweets => {
           displayTweets(request, reply, tweets, null);
-        }).catch(err => {
-          reply.redirect('/');
-        });
-      }).catch(err => {
-        reply.redirect('/');
-      });
+        }).catch(err => { console.log(err); });
+      }).catch(err => { console.log(err); });
     } else { // timeline or own timeline
       User.findOne({ _id: request.params.id }).then(timelineUser => {
         Tweet.find({ user: request.params.id }).sort({ date: 'desc' }).populate('user').then(tweets => {
           displayTweets(request, reply, tweets, timelineUser);
-        }).catch(err => {
-          reply.redirect('/');
-        });
-      }).catch(err => {
-        reply.redirect('/');
-      });
+        }).catch(err => { console.log(err); });
+      }).catch(err => { console.log(err); });
     }
   },
 
@@ -137,9 +121,7 @@ exports.publish = {
         let id = newTweet.user._id;
         reply.redirect('/tweets/' + id);
       }
-    }).catch(err => {
-      reply.redirect('/');
-    });
+    }).catch(err => { console.log(err); });
   },
 
 };
@@ -198,9 +180,7 @@ function displayTweets(request, reply, tweets, timelineUser) {
         });
       }).catch(err => { console.log(err); });
     }
-  }).catch(err => {
-    reply.redirect('/tweets');
-  });
+  }).catch(err => { console.log(err); });
 }
 
 exports.uploadImage = {
@@ -230,9 +210,7 @@ exports.uploadImage = {
           });
         });
       });
-    }).catch(err => {
-      reply.redirect('/');
-    });
+    }).catch(err => { console.log(err); });
   },
 
 };
