@@ -20,6 +20,16 @@
     <div class="meta">
       <span class="date">Member since {{user.fcreationDate}}</span>
     </div>
+    <div class="meta">
+      <i class="comment icon"></i>
+      {{user.tweetCount}} Tweets
+    </div>
+    <div class="meta">
+      <span class="right floated">
+        Following {{user.followingCount}}
+        <i class="user icon"></i>
+      </span>
+    </div>
     {{#if user.deletable}}
       <br>
       <div class="extra content">

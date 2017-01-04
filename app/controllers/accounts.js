@@ -188,15 +188,21 @@ exports.users = {
     var userEmail = request.auth.credentials.loggedInUser;
     User.findOne({ email: userEmail }).then(currentUser => {
 
-      User.find({}).sort('firstName').then(users => {
-        users.forEach(u => {
-          u.fcreationDate = u.creationDate.getDate() + '.' + u.creationDate.getMonth() +
-              '.' + u.creationDate.getFullYear();
-          if (currentUser.admin)
-            u.deletable = true;
-          u.fav = currentUser.following.indexOf(u._id) !== -1;
-          u.followable = currentUser.email !== u.email;
-        });
+      let users = [];
+      const userCursor = User.find({}).sort('firstName').cursor();
+      userCursor.eachAsync(u => {
+        u.fcreationDate = u.creationDate.getDate() + '.' + u.creationDate.getMonth() +
+            '.' + u.creationDate.getFullYear();
+        if (currentUser.admin)
+          u.deletable = true;
+        u.fav = currentUser.following.indexOf(u._id) !== -1;
+        u.followable = currentUser.email !== u.email;
+        u.followingCount = u.following.length;
+        return Tweet.count({ user: u._id }).then(userTweetCount => {
+          u.tweetCount = userTweetCount;
+          users.push(u);
+        }).catch(err => { console.log(err); });
+      }).then(() => {
         reply.view('users', {
           title: 'User',
           users: users,
@@ -204,7 +210,6 @@ exports.users = {
       }).catch(err => {
         reply.redirect('/');
       });
-
     }).catch(err => {
       reply.redirect('/');
     });

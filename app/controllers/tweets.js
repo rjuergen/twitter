@@ -149,43 +149,54 @@ function displayTweets(request, reply, tweets, timelineUser) {
   User.findOne({ email: userEmail }).then(currentUser => {
     currentUser.fcreationDate = currentUser.creationDate.getDate() +
         '.' + currentUser.creationDate.getMonth() + '.' + currentUser.creationDate.getFullYear();
+    currentUser.followingCount = currentUser.following.length;
     tweets.forEach(t => {
       t.fdate = t.date.toLocaleString();
       if (currentUser.admin || t.user.email === currentUser.email)
         t.deletable = true;
     });
     if (timelineUser === null) { // home
-      reply.view('timeline', {
-        title: 'Twitterer',
-        tweets: tweets,
-        can_post: true,
-        mainmenuid: 'home',
-        image: currentImage[userEmail],
-        user: currentUser,
-        followable: false,
-      });
+      Tweet.count({ user: currentUser._id }).then(userTweetCount => {
+        currentUser.tweetCount = userTweetCount;
+        reply.view('timeline', {
+          title: 'Twitterer',
+          tweets: tweets,
+          can_post: true,
+          mainmenuid: 'home',
+          image: currentImage[userEmail],
+          user: currentUser,
+          followable: false,
+        });
+      }).catch(err => { console.log(err); });
     } else if (currentUser.email === timelineUser.email) { // own timeline
-      reply.view('timeline', {
-        title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
-        tweets: tweets,
-        user_id: currentUser._id,
-        can_post: true,
-        mainmenuid: 'owntimeline',
-        image: currentImage[userEmail],
-        user: currentUser,
-        followable: false,
-      });
+      Tweet.count({ user: currentUser._id }).then(userTweetCount => {
+        currentUser.tweetCount = userTweetCount;
+        reply.view('timeline', {
+          title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
+          tweets: tweets,
+          user_id: currentUser._id,
+          can_post: true,
+          mainmenuid: 'owntimeline',
+          image: currentImage[userEmail],
+          user: currentUser,
+          followable: false,
+        });
+      }).catch(err => { console.log(err); });
     } else { // someones timeline
       timelineUser.fav = currentUser.following.indexOf(timelineUser._id) != -1;
       timelineUser.fcreationDate = timelineUser.creationDate.getDate() +
           '.' + timelineUser.creationDate.getMonth() + '.' + timelineUser.creationDate.getFullYear();
-      reply.view('timeline', {
-        title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
-        tweets: tweets,
-        mainmenuid: 'timeline',
-        user: timelineUser,
-        followable: true,
-      });
+      timelineUser.followingCount = timelineUser.following.length;
+      Tweet.count({ user: timelineUser._id }).then(userTweetCount => {
+        timelineUser.tweetCount = userTweetCount;
+        reply.view('timeline', {
+          title: timelineUser.firstName + ' ' + timelineUser.lastName + ' Timeline',
+          tweets: tweets,
+          mainmenuid: 'timeline',
+          user: timelineUser,
+          followable: true,
+        });
+      }).catch(err => { console.log(err); });
     }
   }).catch(err => {
     reply.redirect('/tweets');
